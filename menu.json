@@ -526,7 +526,7 @@
       "name": "Spaghetti",
       "description": "Classic spaghetti served with your choice of sauce. Add meatball +$3.00 or sausage +$4.00.",
       "price": "$12.00",
-      "image": null,
+      "image": "images/spaghetti.jpg",
       "active": true,
       "eightySix": {
         "active": false,
