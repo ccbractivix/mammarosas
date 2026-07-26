@@ -580,7 +580,7 @@
       "name": "Lasagna",
       "description": "Layers of pasta, seasoned meat, ricotta, and mozzarella baked in house marinara. Served with garlic bread.",
       "price": "$16.50",
-      "image": null,
+      "image": "images/lasagna.jpg",
       "active": true,
       "eightySix": {
         "active": false,
