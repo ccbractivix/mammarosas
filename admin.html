@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin — Mamma Rosa's Pizzeria</title>
+  <style>
+    :root {
+      --bg: #0f0f14; --card: #1a1c24; --text: #e9e9e9; --muted: #a0a0a8;
+      --accent: #e67e22; --border: #2d2d35; --danger: #c0392b; --success: #27ae60;
+      --warn: #f39c12; --input-bg: #111318;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100vh; background: var(--bg); color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; font-size: 14px; }
+
+    /* ── Auth Screen ─────────────────────────────── */
+    #auth-screen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 20px;
+    }
+    .auth-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 32px; width: 100%; max-width: 360px; text-align: center;
+    }
+    .auth-box h1 { color: var(--accent); font-size: 1.3rem; margin-bottom: 6px; }
+    .auth-box p  { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
+    .auth-box .error { color: var(--danger); font-size: 13px; margin-top: 10px; min-height: 18px; }
+
+    /* ── Admin App ───────────────────────────────── */
+    #admin-app { display: none; min-height: 100vh; }
+
+    /* Header */
+    .admin-header {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+      padding: 10px 18px; background: var(--card); border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 60;
+    }
+    .admin-header h1 { font-size: 1rem; color: var(--accent); }
+    .header-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    #save-status { font-size: 12px; color: var(--muted); }
+
+    /* Tabs */
+    .tabs {
+      display: flex; border-bottom: 1px solid var(--border); background: var(--card);
+      overflow-x: auto; padding: 0 10px;
+    }
+    .tab-btn {
+      background: none; border: none; color: var(--muted); cursor: pointer; padding: 12px 16px;
+      font-size: 13px; font-weight: 600; white-space: nowrap; border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
+    }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-btn:hover { color: var(--text); }
+
+    /* Tab content */
+    .tab-panel { display: none; padding: 18px; max-width: 900px; margin: 0 auto; }
+    .tab-panel.active { display: block; }
+
+    /* ── Toolbar ─────────────────────────────────── */
+    .toolbar {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; align-items: center;
+    }
+    .toolbar select, .toolbar input[type="search"] {
+      background: var(--input-bg); border: 1px solid var(--border); color: var(--text);
+      border-radius: 7px; padding: 7px 10px; font-size: 13px;
+    }
+    .toolbar input[type="search"] { flex: 1; min-width: 140px; }
+
+    /* ── Item List ───────────────────────────────── */
+    .item-row {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+      background: var(--card); border: 1px solid var(--border); border-radius: 9px;
+      padding: 10px 12px; margin-bottom: 6px;
+    }
+    .item-row-info { flex: 1; min-width: 160px; }
+    .item-row-name { font-weight: 600; font-size: 14px; }
+    .item-row-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .item-row-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+    .badge {
+      display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px;
+      border-radius: 20px; margin-right: 4px;
+    }
+    .badge-86   { background: #3d1010; color: #e74c3c; }
+    .badge-spec { background: #2d1f00; color: #f39c12; }
+    .badge-off  { background: #1a1a20; color: #666; }
+
+    /* ── 86'd Panel ──────────────────────────────── */
+    .eightsix-card {
+      background: var(--card); border: 1px solid var(--danger); border-radius: 9px;
+      padding: 12px 14px; margin-bottom: 8px; display: flex; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .eightsix-info { flex: 1; }
+    .eightsix-info .name { font-weight: 600; }
+    .eightsix-info .return-date { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* ── Forms ───────────────────────────────────── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 520px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+    input[type="text"], input[type="date"], input[type="password"], input[type="url"],
+    select, textarea {
+      background: var(--input-bg); border: 1px solid var(--border); color: var(--text);
+      border-radius: 7px; padding: 8px 10px; font-size: 14px; font-family: inherit; width: 100%;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 80px; }
+    .price-row { display: flex; gap: 8px; }
+    .price-row .form-group { flex: 1; }
+    #price-type-area { display: flex; flex-direction: column; gap: 10px; }
+
+    /* ── Buttons ─────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 5px; border: none; border-radius: 7px;
+      padding: 7px 13px; font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity .15s;
+      white-space: nowrap;
+    }
+    .btn:hover { opacity: .85; }
+    .btn:disabled { opacity: .4; cursor: default; }
+    .btn-primary   { background: var(--accent); color: #fff; }
+    .btn-danger    { background: var(--danger); color: #fff; }
+    .btn-success   { background: var(--success); color: #fff; }
+    .btn-secondary { background: var(--border); color: var(--text); }
+    .btn-warn      { background: var(--warn); color: #1b1b1b; }
+    .btn-sm        { padding: 5px 10px; font-size: 12px; }
+
+    /* ── Modal ───────────────────────────────────── */
+    .modal {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,.7); align-items: center; justify-content: center; padding: 16px;
+    }
+    .modal.open { display: flex; }
+    .modal-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      width: 100%; max-width: 580px; max-height: 90vh; overflow-y: auto; position: relative; padding: 24px;
+    }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .modal-header h2 { font-size: 1.05rem; }
+    .modal-close-btn { background: none; border: none; color: var(--muted); font-size: 24px; cursor: pointer; }
+    .modal-close-btn:hover { color: var(--text); }
+    .modal-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+
+    /* ── Image preview ───────────────────────────── */
+    .img-preview { width: 100%; max-height: 160px; object-fit: cover; border-radius: 7px; margin-top: 6px; display: none; }
+    .img-preview.show { display: block; }
+
+    /* ── Settings ────────────────────────────────── */
+    .settings-section { margin-bottom: 24px; }
+    .settings-section h3 { color: var(--accent); font-size: 0.9rem; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+
+    /* ── Misc ────────────────────────────────────── */
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+    .toast {
+      position: fixed; bottom: 20px; right: 20px; z-index: 999;
+      padding: 12px 18px; border-radius: 9px; font-size: 14px; font-weight: 600;
+      background: var(--success); color: #fff; opacity: 0; transition: opacity .3s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+    .toast.error { background: var(--danger); }
+    .section-title { font-size: 0.85rem; color: var(--muted); font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em; margin: 16px 0 8px; }
+  </style>
+</head>
+<body>
+
+<!-- ── Auth Screen ──────────────────────────────────────────── -->
+<div id="auth-screen">
+  <div class="auth-box">
+    <h1>🍕 Mamma Rosa's</h1>
+    <p id="auth-subtitle">Admin Portal</p>
+    <!-- First-time setup -->
+    <div id="setup-form" style="display:none">
+      <p style="color:var(--muted);margin-bottom:16px;">First time setup — create your admin password.</p>
+      <div class="form-group" style="margin-bottom:10px;text-align:left;">
+        <label>New Password</label>
+        <input type="password" id="setup-pw1" placeholder="Choose a password" autocomplete="new-password">
+      </div>
+      <div class="form-group" style="margin-bottom:16px;text-align:left;">
+        <label>Confirm Password</label>
+        <input type="password" id="setup-pw2" placeholder="Repeat password" autocomplete="new-password">
+      </div>
+      <button class="btn btn-primary" style="width:100%;" onclick="doSetup()">Create Password</button>
+      <p class="error" id="setup-error"></p>
+    </div>
+    <!-- Login form -->
+    <div id="login-form" style="display:none">
+      <div class="form-group" style="margin-bottom:14px;text-align:left;">
+        <label>Password</label>
+        <input type="password" id="login-pw" placeholder="Admin password" autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary" style="width:100%;" onclick="doLogin()">Login</button>
+      <p class="error" id="login-error"></p>
+      <p style="margin-top:14px;font-size:12px;color:var(--muted);">
+        Forgot password? Clear browser storage for this site to reset.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ── Admin App ────────────────────────────────────────────── -->
+<div id="admin-app">
+  <header class="admin-header">
+    <h1>🍕 Mamma Rosa's Admin</h1>
+    <div class="header-actions">
+      <span id="save-status"></span>
+      <button class="btn btn-primary" id="save-btn" onclick="saveToGitHub()">💾 Save to GitHub</button>
+      <button class="btn btn-secondary btn-sm" onclick="logout()">Log Out</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" onclick="switchTab('menu', this)">Menu Items</button>
+    <button class="tab-btn" onclick="switchTab('eightysix', this)">86'd Items <span id="86-count"></span></button>
+    <button class="tab-btn" onclick="switchTab('specials', this)">Specials</button>
+    <button class="tab-btn" onclick="switchTab('settings', this)">Settings</button>
+  </nav>
+
+  <!-- ── Menu Items Tab ───────────────────────────── -->
+  <div id="tab-menu" class="tab-panel active">
+    <div class="toolbar">
+      <select id="cat-filter" onchange="renderItemList()">
+        <option value="">All Categories</option>
+      </select>
+      <input type="search" id="search-input" placeholder="Search items…" oninput="renderItemList()">
+      <button class="btn btn-primary" onclick="openItemModal(null)">+ Add Item</button>
+    </div>
+    <div id="items-list"></div>
+  </div>
+
+  <!-- ── 86'd Tab ─────────────────────────────────── -->
+  <div id="tab-eightysix" class="tab-panel">
+    <p style="color:var(--muted);margin-bottom:14px;font-size:13px;">
+      Items marked 86 are hidden from the public menu. Use "Return to Service" to make them available again.
+    </p>
+    <div id="eightysix-list"></div>
+  </div>
+
+  <!-- ── Specials Tab ─────────────────────────────── -->
+  <div id="tab-specials" class="tab-panel">
+    <p style="color:var(--muted);margin-bottom:14px;font-size:13px;">
+      Items marked as specials appear in the "Today's Specials" banner on the public menu.
+      Optionally set a date range to automatically show/hide them.
+    </p>
+    <div id="specials-list"></div>
+  </div>
+
+  <!-- ── Settings Tab ─────────────────────────────── -->
+  <div id="tab-settings" class="tab-panel">
+    <div class="settings-section">
+      <h3>GitHub Integration</h3>
+      <p style="color:var(--muted);margin-bottom:14px;font-size:13px;">
+        A Personal Access Token with <strong>repo</strong> scope is required to save changes to GitHub.
+        The token is stored in your browser's localStorage — never shared.
+      </p>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>GitHub Owner</label>
+          <input type="text" id="gh-owner" placeholder="ccbractivix">
+        </div>
+        <div class="form-group">
+          <label>GitHub Repo</label>
+          <input type="text" id="gh-repo" placeholder="mammarosas">
+        </div>
+        <div class="form-group">
+          <label>Branch</label>
+          <input type="text" id="gh-branch" placeholder="main">
+        </div>
+        <div class="form-group">
+          <label>Personal Access Token</label>
+          <input type="password" id="gh-token" placeholder="ghp_…" autocomplete="off">
+        </div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:12px;" onclick="saveGitHubSettings()">Save GitHub Settings</button>
+    </div>
+
+    <hr class="divider">
+
+    <div class="settings-section">
+      <h3>Change Password</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>New Password</label>
+          <input type="password" id="new-pw1" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label>Confirm New Password</label>
+          <input type="password" id="new-pw2" autocomplete="new-password">
+        </div>
+      </div>
+      <p id="pw-change-error" style="color:var(--danger);font-size:12px;margin-top:6px;"></p>
+      <button class="btn btn-secondary" style="margin-top:12px;" onclick="changePassword()">Update Password</button>
+    </div>
+
+    <hr class="divider">
+
+    <div class="settings-section">
+      <h3>Public Menu Settings</h3>
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;text-transform:none;letter-spacing:0;">
+        <input type="checkbox" id="show-86d" onchange="toggleShow86d()">
+        Show 86'd items on public menu as "Temporarily Unavailable" (instead of hiding them)
+      </label>
+    </div>
+
+    <hr class="divider">
+
+    <div class="settings-section">
+      <h3>Reload Menu from GitHub</h3>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:10px;">
+        Reload the latest menu.json from GitHub, discarding any unsaved local changes.
+      </p>
+      <button class="btn btn-warn" onclick="loadMenuFromGitHub(true)">⟳ Reload from GitHub</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Add / Edit Item Modal ────────────────────────────────── -->
+<div id="item-modal" class="modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 id="item-modal-title">Add Item</h2>
+      <button class="modal-close-btn" onclick="closeItemModal()">×</button>
+    </div>
+
+    <form id="item-form" onsubmit="saveItem(event)">
+      <input type="hidden" id="edit-item-id">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Category *</label>
+          <select id="item-category" required></select>
+        </div>
+        <div class="form-group">
+          <label>Name *</label>
+          <input type="text" id="item-name" required placeholder="Item name">
+        </div>
+        <div class="form-group full">
+          <label>Description</label>
+          <textarea id="item-desc" placeholder="Brief description shown in the popup modal"></textarea>
+        </div>
+
+        <div class="form-group full">
+          <label>Pricing</label>
+          <select id="price-mode" onchange="togglePriceMode()">
+            <option value="single">Single price</option>
+            <option value="sizes">Size-based (pizza)</option>
+          </select>
+        </div>
+
+        <div id="single-price-group" class="form-group full">
+          <label>Price</label>
+          <input type="text" id="item-price" placeholder="e.g. $12.00 or 50¢ each">
+        </div>
+
+        <div id="size-price-group" class="form-group full" style="display:none">
+          <label>Size Prices</label>
+          <div class="price-row">
+            <div class="form-group">
+              <label>10"</label>
+              <input type="text" id="price-10" placeholder="e.g. $10.00">
+            </div>
+            <div class="form-group">
+              <label>12"</label>
+              <input type="text" id="price-12" placeholder="e.g. $12.00">
+            </div>
+            <div class="form-group">
+              <label>14"</label>
+              <input type="text" id="price-14" placeholder="e.g. $14.00">
+            </div>
+            <div class="form-group">
+              <label>16"</label>
+              <input type="text" id="price-16" placeholder="e.g. $16.00">
+            </div>
+            <div class="form-group">
+              <label>18"</label>
+              <input type="text" id="price-18" placeholder="e.g. $18.00">
+            </div>
+            <div class="form-group">
+              <label>20"</label>
+              <input type="text" id="price-20" placeholder="e.g. $20.00">
+            </div>
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin-top:4px;">Leave a size blank to omit it.</p>
+        </div>
+
+        <div class="form-group full">
+          <label>Image</label>
+          <input type="file" id="item-image-file" accept="image/jpeg,image/png,image/webp,image/gif" onchange="previewImage(this)">
+          <img id="item-image-preview" class="img-preview" alt="Preview">
+          <p id="current-image-name" style="font-size:12px;color:var(--muted);margin-top:4px;"></p>
+          <p id="img-upload-status" style="font-size:12px;color:var(--muted);margin-top:2px;"></p>
+        </div>
+
+        <div class="form-group">
+          <label>Active</label>
+          <select id="item-active">
+            <option value="true">Yes — visible on menu</option>
+            <option value="false">No — hidden from menu</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeItemModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Item</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ── 86 Item Modal ────────────────────────────────────────── -->
+<div id="eightysix-modal" class="modal">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-header">
+      <h2>86 Item</h2>
+      <button class="modal-close-btn" onclick="close86Modal()">×</button>
+    </div>
+    <p style="color:var(--muted);margin-bottom:16px;font-size:13px;">
+      Marking an item as 86'd will hide it from the public menu (unless the "show as unavailable" setting is on).
+    </p>
+    <p id="86-item-name" style="font-weight:700;margin-bottom:14px;"></p>
+    <div class="form-group">
+      <label>Return to Service Date (optional)</label>
+      <input type="date" id="86-return-date">
+      <p style="font-size:12px;color:var(--muted);margin-top:4px;">
+        Leave blank if unknown. You can manually return it at any time.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" onclick="close86Modal()">Cancel</button>
+      <button type="button" class="btn btn-danger" onclick="confirm86()">86 This Item</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Special Modal ────────────────────────────────────────── -->
+<div id="special-modal" class="modal">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-header">
+      <h2>Mark as Special</h2>
+      <button class="modal-close-btn" onclick="closeSpecialModal()">×</button>
+    </div>
+    <p id="special-item-name" style="font-weight:700;margin-bottom:14px;"></p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Start Date (optional)</label>
+        <input type="date" id="special-start">
+      </div>
+      <div class="form-group">
+        <label>End Date (optional)</label>
+        <input type="date" id="special-end">
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;">
+      Leave both dates blank to mark as a permanent special. A ⭐ will appear next to the item and it will appear in the Specials banner.
+    </p>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" onclick="closeSpecialModal()">Cancel</button>
+      <button type="button" class="btn btn-warn" onclick="confirmSpecial()">Mark as Special</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+  // ── Constants ───────────────────────────────────────────────────────────
+  const STORAGE_HASH_KEY  = 'mr_admin_hash';
+  const STORAGE_GH_OWNER  = 'mr_gh_owner';
+  const STORAGE_GH_REPO   = 'mr_gh_repo';
+  const STORAGE_GH_BRANCH = 'mr_gh_branch';
+  const STORAGE_GH_TOKEN  = 'mr_gh_token';
+  const SESSION_AUTH_KEY  = 'mr_admin_auth';
+
+  // ── State ───────────────────────────────────────────────────────────────
+  let menuData    = null;   // loaded menu.json
+  let menuFileSHA = null;   // GitHub file SHA for PUT
+  let editingId   = null;   // item id being edited in item modal
+  let acting86Id  = null;   // item id being 86'd
+  let actingSpecId = null;  // item id for special modal
+
+  // ── Crypto helpers ──────────────────────────────────────────────────────
+  async function hashPw(pw) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  // ── Auth ────────────────────────────────────────────────────────────────
+  async function initAuth() {
+    const stored = localStorage.getItem(STORAGE_HASH_KEY);
+    if (!stored) {
+      document.getElementById('setup-form').style.display = 'block';
+    } else {
+      document.getElementById('login-form').style.display = 'block';
+      document.getElementById('login-pw').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+    }
+  }
+
+  async function doSetup() {
+    const p1 = document.getElementById('setup-pw1').value;
+    const p2 = document.getElementById('setup-pw2').value;
+    const err = document.getElementById('setup-error');
+    if (!p1) { err.textContent = 'Please enter a password.'; return; }
+    if (p1 !== p2) { err.textContent = 'Passwords do not match.'; return; }
+    if (p1.length < 6) { err.textContent = 'Password must be at least 6 characters.'; return; }
+    err.textContent = '';
+    localStorage.setItem(STORAGE_HASH_KEY, await hashPw(p1));
+    enterAdmin();
+  }
+
+  async function doLogin() {
+    const pw  = document.getElementById('login-pw').value;
+    const err = document.getElementById('login-error');
+    const stored = localStorage.getItem(STORAGE_HASH_KEY);
+    if (!pw) { err.textContent = 'Enter your password.'; return; }
+    const hash = await hashPw(pw);
+    if (hash !== stored) { err.textContent = 'Incorrect password.'; return; }
+    err.textContent = '';
+    enterAdmin();
+  }
+
+  function enterAdmin() {
+    sessionStorage.setItem(SESSION_AUTH_KEY, '1');
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('admin-app').style.display = 'block';
+    loadSettingsFromStorage();
+    loadMenuFromGitHub(false);
+  }
+
+  function logout() {
+    sessionStorage.removeItem(SESSION_AUTH_KEY);
+    location.reload();
+  }
+
+  async function changePassword() {
+    const p1 = document.getElementById('new-pw1').value;
+    const p2 = document.getElementById('new-pw2').value;
+    const err = document.getElementById('pw-change-error');
+    if (!p1) { err.textContent = 'Enter a new password.'; return; }
+    if (p1 !== p2) { err.textContent = 'Passwords do not match.'; return; }
+    if (p1.length < 6) { err.textContent = 'At least 6 characters required.'; return; }
+    localStorage.setItem(STORAGE_HASH_KEY, await hashPw(p1));
+    err.textContent = '';
+    showToast('Password updated.', false);
+    document.getElementById('new-pw1').value = '';
+    document.getElementById('new-pw2').value = '';
+  }
+
+  // ── Settings ────────────────────────────────────────────────────────────
+  function loadSettingsFromStorage() {
+    document.getElementById('gh-owner').value  = localStorage.getItem(STORAGE_GH_OWNER)  || 'ccbractivix';
+    document.getElementById('gh-repo').value   = localStorage.getItem(STORAGE_GH_REPO)   || 'mammarosas';
+    document.getElementById('gh-branch').value = localStorage.getItem(STORAGE_GH_BRANCH) || 'main';
+    document.getElementById('gh-token').value  = localStorage.getItem(STORAGE_GH_TOKEN)  || '';
+  }
+
+  function saveGitHubSettings() {
+    localStorage.setItem(STORAGE_GH_OWNER,  document.getElementById('gh-owner').value.trim());
+    localStorage.setItem(STORAGE_GH_REPO,   document.getElementById('gh-repo').value.trim());
+    localStorage.setItem(STORAGE_GH_BRANCH, document.getElementById('gh-branch').value.trim());
+    localStorage.setItem(STORAGE_GH_TOKEN,  document.getElementById('gh-token').value.trim());
+    showToast('GitHub settings saved.');
+  }
+
+  function ghConfig() {
+    return {
+      owner:  localStorage.getItem(STORAGE_GH_OWNER)  || 'ccbractivix',
+      repo:   localStorage.getItem(STORAGE_GH_REPO)   || 'mammarosas',
+      branch: localStorage.getItem(STORAGE_GH_BRANCH) || 'main',
+      token:  localStorage.getItem(STORAGE_GH_TOKEN)  || '',
+    };
+  }
+
+  // ── GitHub API ──────────────────────────────────────────────────────────
+  async function loadMenuFromGitHub(force) {
+    const { owner, repo, branch, token } = ghConfig();
+    setSaveStatus('Loading…');
+    try {
+      const headers = { 'Accept': 'application/vnd.github.v3+json' };
+      if (token) headers['Authorization'] = `token ${token}`;
+      const res = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/contents/menu.json?ref=${branch}&_=${Date.now()}`,
+        { headers }
+      );
+      if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+      const file = await res.json();
+      menuFileSHA = file.sha;
+      const content = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
+      menuData = JSON.parse(content);
+      populateCategoryFilter();
+      renderItemList();
+      render86List();
+      renderSpecialsList();
+      applySiteSettings();
+      setSaveStatus('Loaded from GitHub ✓');
+    } catch (err) {
+      setSaveStatus('');
+      showToast('Could not load menu from GitHub. Check settings.', true);
+      console.error(err);
+      // Fallback: try relative fetch
+      if (!menuData) {
+        try {
+          const r2 = await fetch('menu.json');
+          menuData = await r2.json();
+          menuFileSHA = null;
+          populateCategoryFilter();
+          renderItemList();
+          render86List();
+          renderSpecialsList();
+          applySiteSettings();
+          setSaveStatus('Loaded locally (not saved yet)');
+        } catch (e2) { console.error(e2); }
+      }
+    }
+  }
+
+  async function saveToGitHub() {
+    const { owner, repo, branch, token } = ghConfig();
+    if (!token) {
+      showToast('No GitHub token set. Go to Settings → GitHub Integration.', true);
+      return;
+    }
+    const saveBtn = document.getElementById('save-btn');
+    saveBtn.disabled = true;
+    setSaveStatus('Saving…');
+
+    try {
+      // Get current SHA if we don't have it
+      if (!menuFileSHA) {
+        const headers = { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' };
+        const r = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/menu.json?ref=${branch}`, { headers });
+        if (r.ok) { const f = await r.json(); menuFileSHA = f.sha; }
+      }
+
+      const body = { message: 'Update menu via admin portal', branch, content: btoa(unescape(encodeURIComponent(JSON.stringify(menuData, null, 2)))) };
+      if (menuFileSHA) body.sha = menuFileSHA;
+
+      const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/menu.json`, {
+        method: 'PUT',
+        headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+
+      if (!res.ok) {
+        const e = await res.json();
+        throw new Error(e.message || res.status);
+      }
+      const data = await res.json();
+      menuFileSHA = data.content.sha;
+      setSaveStatus('Saved to GitHub ✓');
+      showToast('Menu saved to GitHub!');
+    } catch (err) {
+      setSaveStatus('Save failed');
+      showToast(`Save failed: ${err.message}`, true);
+      console.error(err);
+    } finally {
+      saveBtn.disabled = false;
+    }
+  }
+
+  async function uploadImage(itemId, file) {
+    const { owner, repo, branch, token } = ghConfig();
+    if (!token) return null;
+    const ext  = file.name.split('.').pop().toLowerCase();
+    const path = `images/${itemId}.${ext}`;
+
+    const base64 = await new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload  = () => res(r.result.split(',')[1]);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+
+    const headers = { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' };
+
+    // Check if file already exists to get SHA
+    let existingSha;
+    try {
+      const check = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, { headers });
+      if (check.ok) { const d = await check.json(); existingSha = d.sha; }
+    } catch {}
+
+    const body = { message: `Add image for ${itemId}`, branch, content: base64 };
+    if (existingSha) body.sha = existingSha;
+
+    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+      method: 'PUT', headers, body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error(`Image upload failed: ${res.status}`);
+    return path;
+  }
+
+  // ── UI Helpers ──────────────────────────────────────────────────────────
+  function setSaveStatus(msg) { document.getElementById('save-status').textContent = msg; }
+
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (isError ? ' error' : '');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => { t.className = 'toast'; }, 3500);
+  }
+
+  function slugify(str) {
+    return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  function uniqueId(name) {
+    const base = slugify(name);
+    const exists = menuData.items.some(i => i.id === base);
+    if (!exists) return base;
+    let n = 2;
+    while (menuData.items.some(i => i.id === `${base}-${n}`)) n++;
+    return `${base}-${n}`;
+  }
+
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`tab-${name}`).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function applySiteSettings() {
+    if (!menuData) return;
+    const show86 = menuData.config && menuData.config.show86dAsUnavailable;
+    document.getElementById('show-86d').checked = !!show86;
+  }
+
+  function toggleShow86d() {
+    if (!menuData) return;
+    menuData.config = menuData.config || {};
+    menuData.config.show86dAsUnavailable = document.getElementById('show-86d').checked;
+  }
+
+  // ── Category filter ─────────────────────────────────────────────────────
+  function populateCategoryFilter() {
+    const sel = document.getElementById('cat-filter');
+    sel.innerHTML = '<option value="">All Categories</option>';
+    const itemCat = document.getElementById('item-category');
+    itemCat.innerHTML = '';
+    if (!menuData) return;
+    menuData.categories.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.id; opt.textContent = c.name;
+      sel.appendChild(opt.cloneNode(true));
+      if (!c.infoOnly) itemCat.appendChild(opt);
+    });
+  }
+
+  // ── Item List ───────────────────────────────────────────────────────────
+  function renderItemList() {
+    const container = document.getElementById('items-list');
+    container.innerHTML = '';
+    if (!menuData) return;
+
+    const catFilter = document.getElementById('cat-filter').value;
+    const search    = document.getElementById('search-input').value.toLowerCase().trim();
+
+    const items = menuData.items.filter(item => {
+      if (catFilter && item.category !== catFilter) return false;
+      if (search && !item.name.toLowerCase().includes(search) && !item.description.toLowerCase().includes(search)) return false;
+      return true;
+    });
+
+    if (!items.length) {
+      container.innerHTML = '<div class="empty-state">No items match your filter.</div>';
+      return;
+    }
+
+    // Group by category for display
+    const grouped = {};
+    items.forEach(item => {
+      const cat = menuData.categories.find(c => c.id === item.category) || { name: item.category };
+      if (!grouped[item.category]) grouped[item.category] = { cat, items: [] };
+      grouped[item.category].items.push(item);
+    });
+
+    for (const group of Object.values(grouped)) {
+      const title = document.createElement('div');
+      title.className = 'section-title';
+      title.textContent = group.cat.name;
+      container.appendChild(title);
+
+      group.items.forEach(item => container.appendChild(buildItemRow(item)));
+    }
+  }
+
+  function buildItemRow(item) {
+    const row = document.createElement('div');
+    row.className = 'item-row';
+
+    const is86     = item.eightySix && item.eightySix.active;
+    const isSpec   = item.isSpecial;
+    const isActive = item.active;
+
+    let priceStr = '';
+    if (item.sizes) {
+      priceStr = 'From ' + Object.values(item.sizes)[0];
+    } else {
+      priceStr = item.price || '—';
+    }
+
+    let badges = '';
+    if (!isActive) badges += '<span class="badge badge-off">Inactive</span>';
+    if (is86)      badges += '<span class="badge badge-86">86\'d</span>';
+    if (isSpec)    badges += '<span class="badge badge-spec">⭐ Special</span>';
+
+    row.innerHTML = `
+      <div class="item-row-info">
+        <div class="item-row-name">${item.name} ${badges}</div>
+        <div class="item-row-meta">${priceStr}${item.image ? ' · 📷 has image' : ''}</div>
+      </div>
+      <div class="item-row-actions">
+        <button class="btn btn-secondary btn-sm" onclick="openItemModal('${item.id}')">Edit</button>
+        ${is86
+          ? `<button class="btn btn-success btn-sm" onclick="returnToService('${item.id}')">✓ Return to Service</button>`
+          : `<button class="btn btn-danger btn-sm" onclick="open86Modal('${item.id}')">86</button>`
+        }
+        ${isSpec
+          ? `<button class="btn btn-secondary btn-sm" onclick="removeSpecial('${item.id}')">Remove Special</button>`
+          : `<button class="btn btn-warn btn-sm" onclick="openSpecialModal('${item.id}')">⭐ Special</button>`
+        }
+        <button class="btn btn-danger btn-sm" onclick="deleteItem('${item.id}')" title="Delete item permanently">🗑</button>
+      </div>`;
+    return row;
+  }
+
+  // ── 86 List ─────────────────────────────────────────────────────────────
+  function render86List() {
+    const container = document.getElementById('eightysix-list');
+    container.innerHTML = '';
+    if (!menuData) return;
+
+    const items = menuData.items.filter(i => i.eightySix && i.eightySix.active);
+    document.getElementById('86-count').textContent = items.length ? `(${items.length})` : '';
+
+    if (!items.length) {
+      container.innerHTML = '<div class="empty-state">No items are currently 86\'d. 🎉</div>';
+      return;
+    }
+
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'eightsix-card';
+      const rd = item.eightySix.returnDate;
+      card.innerHTML = `
+        <div class="eightsix-info">
+          <div class="name">${item.name}</div>
+          <div class="return-date">${rd ? `Expected return: ${rd}` : 'Return date: not set'}</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn btn-success btn-sm" onclick="returnToService('${item.id}')">✓ Return to Service</button>
+          <button class="btn btn-secondary btn-sm" onclick="open86Modal('${item.id}')">Edit Date</button>
+        </div>`;
+      container.appendChild(card);
+    });
+  }
+
+  // ── Specials List ────────────────────────────────────────────────────────
+  function renderSpecialsList() {
+    const container = document.getElementById('specials-list');
+    container.innerHTML = '';
+    if (!menuData) return;
+
+    const today = new Date().toISOString().split('T')[0];
+    const items = menuData.items.filter(i => i.isSpecial);
+
+    if (!items.length) {
+      container.innerHTML = '<div class="empty-state">No specials set. Use "⭐ Special" buttons in the Menu Items tab to add them.</div>';
+      return;
+    }
+
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'item-row';
+      const sd = item.specialDates || {};
+      const active = (!sd.start || today >= sd.start) && (!sd.end || today <= sd.end);
+      card.innerHTML = `
+        <div class="item-row-info">
+          <div class="item-row-name">${item.name} ${active ? '<span class="badge badge-spec">Active Today</span>' : ''}</div>
+          <div class="item-row-meta">
+            ${sd.start ? `From ${sd.start}` : 'No start date'} →
+            ${sd.end   ? `Until ${sd.end}` : 'No end date'}
+          </div>
+        </div>
+        <div class="item-row-actions">
+          <button class="btn btn-warn btn-sm" onclick="openSpecialModal('${item.id}')">Edit Dates</button>
+          <button class="btn btn-secondary btn-sm" onclick="removeSpecial('${item.id}')">Remove Special</button>
+        </div>`;
+      container.appendChild(card);
+    });
+  }
+
+  // ── Item Modal ───────────────────────────────────────────────────────────
+  function openItemModal(itemId) {
+    editingId = itemId;
+    const modal = document.getElementById('item-modal');
+    const form  = document.getElementById('item-form');
+    form.reset();
+    document.getElementById('item-image-preview').classList.remove('show');
+    document.getElementById('current-image-name').textContent = '';
+    document.getElementById('img-upload-status').textContent = '';
+    document.getElementById('size-price-group').style.display = 'none';
+    document.getElementById('single-price-group').style.display = 'block';
+
+    if (itemId) {
+      const item = menuData.items.find(i => i.id === itemId);
+      if (!item) return;
+      document.getElementById('item-modal-title').textContent = 'Edit Item';
+      document.getElementById('edit-item-id').value = item.id;
+      document.getElementById('item-category').value = item.category;
+      document.getElementById('item-name').value      = item.name;
+      document.getElementById('item-desc').value      = item.description || '';
+      document.getElementById('item-active').value    = String(item.active !== false);
+
+      if (item.sizes) {
+        document.getElementById('price-mode').value = 'sizes';
+        togglePriceMode();
+        const sizes = item.sizes || {};
+        document.getElementById('price-10').value = sizes['10'] || '';
+        document.getElementById('price-12').value = sizes['12'] || '';
+        document.getElementById('price-14').value = sizes['14'] || '';
+        document.getElementById('price-16').value = sizes['16'] || '';
+        document.getElementById('price-18').value = sizes['18'] || '';
+        document.getElementById('price-20').value = sizes['20'] || '';
+      } else {
+        document.getElementById('price-mode').value  = 'single';
+        document.getElementById('item-price').value  = item.price || '';
+      }
+
+      if (item.image) {
+        document.getElementById('current-image-name').textContent = `Current: ${item.image}`;
+      }
+    } else {
+      document.getElementById('item-modal-title').textContent = 'Add Item';
+      document.getElementById('edit-item-id').value = '';
+    }
+
+    modal.classList.add('open');
+  }
+
+  function closeItemModal() {
+    document.getElementById('item-modal').classList.remove('open');
+    editingId = null;
+  }
+
+  function togglePriceMode() {
+    const mode = document.getElementById('price-mode').value;
+    document.getElementById('single-price-group').style.display = mode === 'single' ? 'block' : 'none';
+    document.getElementById('size-price-group').style.display   = mode === 'sizes'  ? 'block' : 'none';
+  }
+
+  function previewImage(input) {
+    const file    = input.files[0];
+    const preview = document.getElementById('item-image-preview');
+    if (file) {
+      const reader  = new FileReader();
+      reader.onload = e => { preview.src = e.target.result; preview.classList.add('show'); };
+      reader.readAsDataURL(file);
+    } else {
+      preview.classList.remove('show');
+    }
+  }
+
+  async function saveItem(e) {
+    e.preventDefault();
+    if (!menuData) return;
+
+    const id      = document.getElementById('edit-item-id').value;
+    const name    = document.getElementById('item-name').value.trim();
+    const catId   = document.getElementById('item-category').value;
+    const desc    = document.getElementById('item-desc').value.trim();
+    const active  = document.getElementById('item-active').value === 'true';
+    const mode    = document.getElementById('price-mode').value;
+    const imgFile = document.getElementById('item-image-file').files[0];
+
+    if (!name) return;
+
+    let existingItem = id ? menuData.items.find(i => i.id === id) : null;
+    const newId = existingItem ? existingItem.id : uniqueId(name);
+
+    // Build item
+    const item = existingItem
+      ? { ...existingItem }
+      : {
+          id: newId, category: catId, name, description: desc,
+          image: null, active,
+          eightySix: { active: false, returnDate: null },
+          isSpecial: false, specialDates: { start: null, end: null }
+        };
+
+    item.name        = name;
+    item.category    = catId;
+    item.description = desc;
+    item.active      = active;
+
+    if (mode === 'sizes') {
+      const sizes = {};
+      ['10','12','14','16','18','20'].forEach(s => {
+        const v = document.getElementById(`price-${s}`).value.trim();
+        if (v) sizes[s] = v;
+      });
+      item.sizes = Object.keys(sizes).length ? sizes : undefined;
+      delete item.price;
+    } else {
+      item.price = document.getElementById('item-price').value.trim();
+      delete item.sizes;
+    }
+
+    // Handle image upload
+    if (imgFile) {
+      const status = document.getElementById('img-upload-status');
+      status.textContent = 'Uploading image…';
+      try {
+        const path = await uploadImage(item.id, imgFile);
+        if (path) {
+          item.image = path;
+          status.textContent = `Image uploaded: ${path}`;
+        }
+      } catch (err) {
+        status.textContent = `Image upload failed: ${err.message}`;
+        showToast('Image upload failed. Item saved without image.', true);
+      }
+    }
+
+    if (existingItem) {
+      const idx = menuData.items.findIndex(i => i.id === item.id);
+      menuData.items[idx] = item;
+    } else {
+      menuData.items.push(item);
+    }
+
+    closeItemModal();
+    renderItemList();
+    render86List();
+    renderSpecialsList();
+    setSaveStatus('Unsaved changes — click Save to GitHub');
+    showToast(existingItem ? 'Item updated.' : 'Item added.');
+  }
+
+  function deleteItem(itemId) {
+    if (!confirm('Permanently delete this item? This cannot be undone.')) return;
+    menuData.items = menuData.items.filter(i => i.id !== itemId);
+    renderItemList();
+    render86List();
+    renderSpecialsList();
+    setSaveStatus('Unsaved changes — click Save to GitHub');
+    showToast('Item deleted.');
+  }
+
+  // ── 86 Modal ─────────────────────────────────────────────────────────────
+  function open86Modal(itemId) {
+    acting86Id = itemId;
+    const item = menuData.items.find(i => i.id === itemId);
+    document.getElementById('86-item-name').textContent = item ? item.name : '';
+    const rd = item && item.eightySix && item.eightySix.returnDate;
+    document.getElementById('86-return-date').value = rd || '';
+    document.getElementById('eightysix-modal').classList.add('open');
+  }
+
+  function close86Modal() {
+    document.getElementById('eightysix-modal').classList.remove('open');
+    acting86Id = null;
+  }
+
+  function confirm86() {
+    if (!acting86Id) return;
+    const item = menuData.items.find(i => i.id === acting86Id);
+    if (!item) return;
+    item.eightySix = {
+      active: true,
+      returnDate: document.getElementById('86-return-date').value || null
+    };
+    close86Modal();
+    renderItemList();
+    render86List();
+    setSaveStatus('Unsaved changes — click Save to GitHub');
+    showToast(`"${item.name}" has been 86'd.`);
+  }
+
+  function returnToService(itemId) {
+    const item = menuData.items.find(i => i.id === itemId);
+    if (!item) return;
+    item.eightySix = { active: false, returnDate: null };
+    renderItemList();
+    render86List();
+    setSaveStatus('Unsaved changes — click Save to GitHub');
+    showToast(`"${item.name}" returned to service.`);
+  }
+
+  // ── Special Modal ─────────────────────────────────────────────────────────
+  function openSpecialModal(itemId) {
+    actingSpecId = itemId;
+    const item = menuData.items.find(i => i.id === itemId);
+    document.getElementById('special-item-name').textContent = item ? item.name : '';
+    const sd = (item && item.specialDates) || {};
+    document.getElementById('special-start').value = sd.start || '';
+    document.getElementById('special-end').value   = sd.end   || '';
+    document.getElementById('special-modal').classList.add('open');
+  }
+
+  function closeSpecialModal() {
+    document.getElementById('special-modal').classList.remove('open');
+    actingSpecId = null;
+  }
+
+  function confirmSpecial() {
+    if (!actingSpecId) return;
+    const item = menuData.items.find(i => i.id === actingSpecId);
+    if (!item) return;
+    item.isSpecial = true;
+    item.specialDates = {
+      start: document.getElementById('special-start').value || null,
+      end:   document.getElementById('special-end').value   || null
+    };
+    closeSpecialModal();
+    renderItemList();
+    renderSpecialsList();
+    setSaveStatus('Unsaved changes — click Save to GitHub');
+    showToast(`"${item.name}" marked as special.`);
+  }
+
+  function removeSpecial(itemId) {
+    const item = menuData.items.find(i => i.id === itemId);
+    if (!item) return;
+    item.isSpecial = false;
+    item.specialDates = { start: null, end: null };
+    renderItemList();
+    renderSpecialsList();
+    setSaveStatus('Unsaved changes — click Save to GitHub');
+    showToast(`"${item.name}" removed from specials.`);
+  }
+
+  // ── Close modals on backdrop click ──────────────────────────────────────
+  document.querySelectorAll('.modal').forEach(m => {
+    m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(m => m.classList.remove('open'));
+  });
+
+  // ── Init ─────────────────────────────────────────────────────────────────
+  if (sessionStorage.getItem(SESSION_AUTH_KEY)) {
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('admin-app').style.display = 'block';
+    loadSettingsFromStorage();
+    loadMenuFromGitHub(false);
+  } else {
+    initAuth();
+  }
+</script>
+</body>
+</html>

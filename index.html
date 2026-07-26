@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mamma Rosa's Pizzeria — Titusville, FL</title>
+  <meta name="description" content="Mamma Rosa's Pizzeria in Titusville, FL. Fresh Italian food, pizza, pasta, subs and more. Dine-in and pick-up.">
+  <style>
+    :root {
+      --bg: #0f0f12; --card: #181a21; --text: #e9e9e9; --muted: #b5b5b5;
+      --accent: #e67e22; --border: #2a2a2f; --shadow: 0 4px 16px rgba(0,0,0,.3);
+      --badge-bg: #2d1f00; --badge-text: #f39c12;
+      --unavail: #2a2a2f; --unavail-text: #666;
+    }
+    [data-theme="light"] {
+      --bg: #f7f7f9; --card: #ffffff; --text: #1b1b1b; --muted: #555;
+      --accent: #d35400; --border: #e2e2e7; --shadow: 0 4px 16px rgba(0,0,0,.08);
+      --badge-bg: #fff3e0; --badge-text: #b45309;
+      --unavail: #f0f0f0; --unavail-text: #aaa;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--bg); color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.5;
+    }
+    /* ── Header ── */
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 16px; position: sticky; top: 0; background: var(--bg);
+      z-index: 50; border-bottom: 1px solid var(--border);
+    }
+    .brand img { height: 44px; }
+    .brand-text { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
+    .theme-toggle {
+      background: transparent; border: 0; color: var(--text);
+      font-size: 22px; cursor: pointer; padding: 6px 10px; border-radius: 8px;
+    }
+    .theme-toggle:hover { background: var(--border); }
+    /* ── Container ── */
+    .container { max-width: 640px; margin: 0 auto; padding: 0 14px 40px; }
+    /* ── Restaurant Info ── */
+    .restaurant-info {
+      text-align: center; padding: 18px 0 8px; border-bottom: 1px solid var(--border); margin-bottom: 4px;
+    }
+    .restaurant-info .hours { font-size: 14px; color: var(--text); margin-bottom: 4px; }
+    .restaurant-info .address, .restaurant-info .phone {
+      font-size: 14px; color: var(--muted);
+    }
+    .restaurant-info a { color: var(--accent); text-decoration: none; }
+    .restaurant-info a:hover { text-decoration: underline; }
+    /* ── Specials Banner ── */
+    #specials-banner {
+      background: var(--badge-bg); border: 1px solid var(--accent);
+      border-radius: 10px; margin: 14px 0 4px; padding: 12px 16px; display: none;
+    }
+    #specials-banner h3 { color: var(--accent); font-size: 0.95rem; margin-bottom: 8px; }
+    .special-item-link {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 6px 0; font-size: 14px; cursor: pointer; color: var(--badge-text);
+      border-bottom: 1px dashed var(--border);
+    }
+    .special-item-link:last-child { border-bottom: none; }
+    /* ── Sections ── */
+    .section { margin: 20px 0; }
+    h2 {
+      text-align: center; font-size: 1.1rem; margin: 0 0 4px;
+      color: var(--accent); letter-spacing: .02em;
+    }
+    .section-subtitle {
+      text-align: center; font-size: 0.82rem; color: var(--muted); margin-bottom: 6px;
+    }
+    .category-note {
+      text-align: center; font-size: 13px; color: var(--muted);
+      margin: 0 0 10px; line-height: 1.4;
+    }
+    .info-only-section {
+      text-align: center; padding: 12px 16px; border-radius: 10px;
+      background: var(--card); border: 1px solid var(--border);
+      font-size: 14px; color: var(--muted); margin-top: 6px;
+    }
+    /* ── Menu Grid ── */
+    .menu-grid { display: flex; flex-direction: column; gap: 6px; }
+    .item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 13px 16px; border-radius: 10px; background: var(--card);
+      border: 1px solid var(--border); cursor: pointer; transition: border-color .15s;
+      gap: 10px;
+    }
+    .item:hover { border-color: var(--accent); }
+    .item.unavailable {
+      background: var(--unavail); cursor: default; opacity: .7;
+    }
+    .item.unavailable:hover { border-color: var(--border); }
+    .item .name { font-weight: 600; font-size: 0.95rem; flex: 1; }
+    .item .price { color: var(--muted); font-weight: 500; white-space: nowrap; font-size: 0.9rem; }
+    .item.unavailable .price { color: var(--unavail-text); }
+    .special-star { color: var(--accent); margin-left: 4px; }
+    /* ── Pizza Topping Info Collapsible ── */
+    .topping-info-toggle {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      background: none; border: 1px dashed var(--border); border-radius: 8px;
+      color: var(--muted); font-size: 13px; cursor: pointer; padding: 8px 14px;
+      width: 100%; margin-bottom: 10px; transition: border-color .15s;
+    }
+    .topping-info-toggle:hover { border-color: var(--accent); color: var(--text); }
+    .topping-info-panel {
+      display: none; background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 16px; font-size: 13px; margin-bottom: 12px;
+    }
+    .topping-info-panel.open { display: block; }
+    .topping-block { margin-bottom: 12px; }
+    .topping-block:last-child { margin-bottom: 0; }
+    .topping-block h4 { color: var(--accent); font-size: 0.85rem; margin-bottom: 4px; }
+    .topping-price-row { display: flex; gap: 14px; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+    .topping-price-row span strong { color: var(--text); }
+    .topping-list { color: var(--muted); line-height: 1.5; }
+    .topping-note { text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px; font-style: italic; }
+    /* ── Modal ── */
+    .modal {
+      display: none; position: fixed; z-index: 100; inset: 0;
+      background: rgba(0,0,0,.65); align-items: center; justify-content: center;
+    }
+    .modal.open { display: flex; }
+    .modal-inner {
+      background: var(--card); border-radius: 14px; width: 92%; max-width: 400px;
+      max-height: 90vh; overflow-y: auto; position: relative; box-shadow: var(--shadow);
+      padding: 20px;
+    }
+    .modal-close {
+      position: absolute; top: 10px; right: 14px; border: 0; background: transparent;
+      font-size: 26px; cursor: pointer; color: var(--muted); line-height: 1;
+    }
+    .modal-close:hover { color: var(--text); }
+    #modal-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 14px; display: none; }
+    .modal-special-badge {
+      display: inline-block; background: var(--badge-bg); color: var(--badge-text);
+      font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+      margin-bottom: 8px;
+    }
+    #modal-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; padding-right: 28px; }
+    #modal-desc { font-size: 14px; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+    .modal-price { font-size: 1.2rem; font-weight: 700; color: var(--accent); }
+    .size-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 6px; }
+    .size-table th { background: var(--accent); color: white; padding: 6px 10px; text-align: center; }
+    .size-table td { padding: 7px 10px; border: 1px solid var(--border); text-align: center; }
+    .size-table td:first-child { font-weight: 600; }
+    .size-table tr:nth-child(even) td { background: var(--bg); }
+    /* ── Loading / Error ── */
+    #loading {
+      text-align: center; padding: 60px 20px; color: var(--muted); font-size: 15px;
+    }
+    #error-msg {
+      display: none; text-align: center; padding: 40px 20px; color: #e74c3c;
+    }
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 20px 16px; font-size: 13px; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 400px) {
+      .item { padding: 11px 12px; }
+      .item .name { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <img src="images/mammarosas.png" alt="Mamma Rosa's Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span class="brand-text" style="display:none">Mamma Rosa's</span>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme">🌙</button>
+  </header>
+
+  <div class="container">
+    <div id="restaurant-info" class="restaurant-info" style="display:none"></div>
+    <div id="specials-banner"></div>
+    <div id="loading">Loading menu…</div>
+    <div id="error-msg">⚠️ Could not load the menu. Please try again later.</div>
+    <div id="menu-container"></div>
+  </div>
+
+  <footer id="footer" style="display:none"></footer>
+
+  <!-- Single reusable modal -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-inner">
+      <button class="modal-close" id="modal-close" aria-label="Close">×</button>
+      <img id="modal-img" alt="">
+      <div id="modal-body">
+        <div id="modal-special-badge" class="modal-special-badge" style="display:none">⭐ Today's Special</div>
+        <h3 id="modal-title"></h3>
+        <p id="modal-desc"></p>
+        <div id="modal-price-area"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Theme ──────────────────────────────────────────────────────────────
+    const themeBtn = document.getElementById('themeToggle');
+    function setTheme(mode) {
+      document.documentElement.setAttribute('data-theme', mode);
+      themeBtn.textContent = mode === 'light' ? '☀️' : '🌙';
+      localStorage.setItem('mr_theme', mode);
+    }
+    setTheme(localStorage.getItem('mr_theme') || 'dark');
+    themeBtn.addEventListener('click', () => {
+      setTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+    });
+
+    // ── Modal ──────────────────────────────────────────────────────────────
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalPriceArea = document.getElementById('modal-price-area');
+    const modalSpecialBadge = document.getElementById('modal-special-badge');
+
+    function openModal(item) {
+      if (item.image) {
+        modalImg.src = item.image;
+        modalImg.alt = item.name;
+        modalImg.style.display = 'block';
+      } else {
+        modalImg.style.display = 'none';
+      }
+
+      const active = isSpecialActive(item);
+      modalSpecialBadge.style.display = active ? 'inline-block' : 'none';
+      modalTitle.textContent = item.name;
+      modalDesc.textContent = item.description || 'Fresh and made to order.';
+
+      if (item.sizes) {
+        const rows = Object.entries(item.sizes)
+          .map(([size, price]) => `<tr><td>${size}"</td><td>${price}</td></tr>`)
+          .join('');
+        modalPriceArea.innerHTML =
+          `<table class="size-table"><thead><tr><th>Size</th><th>Price</th></tr></thead><tbody>${rows}</tbody></table>`;
+      } else {
+        modalPriceArea.innerHTML = `<div class="modal-price">${item.price}</div>`;
+      }
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ── Helpers ────────────────────────────────────────────────────────────
+    function todayStr() {
+      return new Date().toISOString().split('T')[0];
+    }
+
+    function isSpecialActive(item) {
+      if (!item.isSpecial) return false;
+      const today = todayStr();
+      const start = item.specialDates && item.specialDates.start;
+      const end   = item.specialDates && item.specialDates.end;
+      if (!start && !end) return true;
+      if (start && today < start) return false;
+      if (end   && today > end)   return false;
+      return true;
+    }
+
+    // ── Pizza Topping Info ────────────────────────────────────────────────
+    function buildToppingInfo(info) {
+      const panel = document.createElement('div');
+      panel.className = 'topping-info-panel';
+      panel.id = 'topping-panel';
+
+      const addBlock = (label, prices, halfPrices, items, premPrice) => {
+        const div = document.createElement('div');
+        div.className = 'topping-block';
+        let html = `<h4>${label}</h4>`;
+        if (prices) {
+          html += `<div class="topping-price-row">`;
+          for (const [size, p] of Object.entries(prices))
+            html += `<span><strong>${size}"</strong> ${p}</span>`;
+          html += `</div>`;
+        }
+        if (halfPrices) {
+          html += `<div class="topping-price-row" style="font-size:12px;margin-bottom:2px;">Half-pizza:`;
+          for (const [size, p] of Object.entries(halfPrices))
+            html += ` <span><strong>${size}"</strong> ${p}</span>`;
+          html += `</div>`;
+        }
+        if (premPrice) {
+          html += `<div class="topping-price-row"><span><strong>Each</strong> ${premPrice}</span></div>`;
+        }
+        if (items) html += `<div class="topping-list">${items.join(', ')}</div>`;
+        div.innerHTML = html;
+        return div;
+      };
+
+      panel.appendChild(addBlock(
+        info.regular.label,
+        info.regular.prices,
+        info.regular.halfPrices,
+        info.regular.items
+      ));
+      panel.appendChild(addBlock(
+        info.specialty.label,
+        info.specialty.prices,
+        null,
+        info.specialty.items
+      ));
+      panel.appendChild(addBlock(
+        info.premium.label,
+        null,
+        null,
+        info.premium.items,
+        info.premium.price
+      ));
+      if (info.note) {
+        const n = document.createElement('p');
+        n.className = 'topping-note';
+        n.textContent = info.note;
+        panel.appendChild(n);
+      }
+
+      const wrapper = document.createElement('div');
+
+      const btn = document.createElement('button');
+      btn.className = 'topping-info-toggle';
+      btn.setAttribute('aria-expanded', 'false');
+      btn.innerHTML = '<span>▶</span> Topping prices &amp; options';
+      btn.addEventListener('click', () => {
+        const open = panel.classList.toggle('open');
+        btn.innerHTML = `<span>${open ? '▼' : '▶'}</span> Topping prices &amp; options`;
+        btn.setAttribute('aria-expanded', String(open));
+      });
+
+      wrapper.appendChild(btn);
+      wrapper.appendChild(panel);
+      return wrapper;
+    }
+
+    // ── Render ─────────────────────────────────────────────────────────────
+    function renderRestaurantInfo(r) {
+      const el = document.getElementById('restaurant-info');
+      el.innerHTML = `
+        <div class="hours">
+          <strong>Dining Room &amp; Pick-Up Hours:</strong><br>
+          ${r.hours.text}<br>
+          ${r.hours.days} &bull; ${r.hours.closed}
+        </div>
+        <div class="address" style="margin-top:8px;">
+          <a href="https://maps.google.com/?q=${encodeURIComponent(r.address)}" target="_blank" rel="noopener">${r.address}</a>
+        </div>
+        <div class="phone" style="margin-top:4px;">
+          <a href="tel:${r.phone.replace(/\D/g,'')}">${r.phone}</a>
+        </div>`;
+      el.style.display = 'block';
+    }
+
+    function renderSpecialsBanner(specials, itemMap) {
+      const banner = document.getElementById('specials-banner');
+      if (!specials.length) { banner.style.display = 'none'; return; }
+      banner.innerHTML = `<h3>⭐ Today's Specials</h3>`;
+      specials.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'special-item-link';
+        const priceText = item.sizes ? `From ${Object.values(item.sizes)[0]}` : item.price;
+        row.innerHTML = `<span>${item.name}</span><span>${priceText}</span>`;
+        row.addEventListener('click', () => openModal(item));
+        banner.appendChild(row);
+      });
+      banner.style.display = 'block';
+    }
+
+    function renderMenu(data) {
+      const container = document.getElementById('menu-container');
+      const today = todayStr();
+      const show86 = data.config && data.config.show86dAsUnavailable;
+      const specials = [];
+
+      data.categories.forEach(cat => {
+        const items = data.items.filter(item => {
+          if (item.category !== cat.id) return false;
+          if (!item.active) return false;
+          if (item.eightySix && item.eightySix.active) {
+            return show86; // only show if config says to show as unavailable
+          }
+          return true;
+        });
+
+        if (!cat.infoOnly && items.length === 0) return;
+
+        // collect specials for the banner
+        items.forEach(item => {
+          if (isSpecialActive(item)) specials.push(item);
+        });
+
+        const section = document.createElement('div');
+        section.className = 'section';
+
+        const h2 = document.createElement('h2');
+        h2.textContent = cat.name;
+        section.appendChild(h2);
+
+        if (cat.subtitle) {
+          const sub = document.createElement('p');
+          sub.className = 'section-subtitle';
+          sub.textContent = cat.subtitle;
+          section.appendChild(sub);
+        }
+
+        if (cat.infoOnly) {
+          if (cat.note) {
+            const info = document.createElement('div');
+            info.className = 'info-only-section';
+            info.textContent = cat.note;
+            section.appendChild(info);
+          }
+          container.appendChild(section);
+          return;
+        }
+
+        if (cat.note) {
+          const note = document.createElement('p');
+          note.className = 'category-note';
+          note.textContent = cat.note;
+          section.appendChild(note);
+        }
+
+        if (cat.id === 'pizza' && data.pizzaToppingInfo) {
+          section.appendChild(buildToppingInfo(data.pizzaToppingInfo));
+        }
+
+        const grid = document.createElement('div');
+        grid.className = 'menu-grid';
+
+        items.forEach(item => {
+          const card = document.createElement('div');
+          const isUnavail = item.eightySix && item.eightySix.active;
+          const isSpecial = isSpecialActive(item);
+          card.className = 'item' + (isUnavail ? ' unavailable' : '');
+
+          let priceText;
+          if (isUnavail) {
+            priceText = 'Temporarily unavailable';
+          } else if (item.sizes) {
+            priceText = `From ${Object.values(item.sizes)[0]}`;
+          } else {
+            priceText = item.price;
+          }
+
+          const starHtml = isSpecial ? '<span class="special-star" aria-label="Special">⭐</span>' : '';
+          card.innerHTML = `<span class="name">${item.name}${starHtml}</span><span class="price">${priceText}</span>`;
+
+          if (!isUnavail) {
+            card.addEventListener('click', () => openModal(item));
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+            card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openModal(item); });
+          }
+
+          grid.appendChild(card);
+        });
+
+        section.appendChild(grid);
+        container.appendChild(section);
+      });
+
+      renderSpecialsBanner(specials);
+    }
+
+    // ── Init ───────────────────────────────────────────────────────────────
+    async function init() {
+      try {
+        const res = await fetch('menu.json');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        document.getElementById('loading').style.display = 'none';
+        if (data.restaurant) renderRestaurantInfo(data.restaurant);
+        renderMenu(data);
+
+        // Footer
+        const footer = document.getElementById('footer');
+        const r = data.restaurant || {};
+        footer.innerHTML = `
+          ${r.diningNote ? `<div style="margin-bottom:6px;">${r.diningNote}</div>` : ''}
+          ${r.partyTraysNote ? `<div>${r.partyTraysNote}</div>` : ''}`;
+        footer.style.display = 'block';
+
+      } catch (err) {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('error-msg').style.display = 'block';
+        console.error('Menu load error:', err);
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
