@@ -1346,7 +1346,7 @@
       "name": "Zeppolis",
       "description": "Light and airy Italian fried doughnuts dusted with powdered sugar. Served by the dozen.",
       "price": "$5.50",
-      "image": null,
+      "image": "images/zeppolis.jpg",
       "active": true,
       "eightySix": {
         "active": false,
