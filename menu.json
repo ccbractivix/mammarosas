@@ -984,62 +984,8 @@
       "id": "cheese-slice",
       "category": "slices",
       "name": "Cheese Slice",
-      "description": "A generous slice of our classic cheese pizza. Available daily 11 am – 2 pm.",
+      "description": "A generous slice of our classic cheese pizza. Available daily 11 am – 2 pm.\nAdditional Regular Topping 50¢ each\nAdditional Specialty Topping 75¢ each\nExtra Cheese $1.00",
       "price": "$3.50",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "slice-regular-topping",
-      "category": "slices",
-      "name": "Additional Topping",
-      "description": "Add any regular topping to your slice: Pepperoni, Sausage, Ham, Bacon, Mushrooms, Onions, Green Peppers, Black Olives.",
-      "price": "50¢ each",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "slice-specialty-topping",
-      "category": "slices",
-      "name": "Specialty Topping",
-      "description": "Add any specialty topping to your slice: Pineapple, Spinach, Pepperoncini, Banana Peppers, Anchovies.",
-      "price": "75¢ each",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "slice-extra-cheese",
-      "category": "slices",
-      "name": "Extra Cheese",
-      "description": "Extra mozzarella cheese added to your slice.",
-      "price": "$1.00",
       "image": null,
       "active": true,
       "eightySix": {
@@ -1056,62 +1002,8 @@
       "id": "calzone-ricotta-mozzarella",
       "category": "calzones",
       "name": "Calzone — Ricotta & Mozzarella",
-      "description": "A golden-baked calzone filled with creamy ricotta and melted mozzarella. Served with a side of marinara.",
+      "description": "A golden-baked calzone filled with creamy ricotta and melted mozzarella. Served with a side of marinara.\nAdditional Regular Topping $1.25 each\nAdditional Specialty Topping $1.50 each\nExtra Cheese $2.00",
       "price": "$13.75",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "calzone-regular-topping",
-      "category": "calzones",
-      "name": "Additional Regular Topping",
-      "description": "Add any regular topping to your calzone.",
-      "price": "$1.25 each",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "calzone-specialty-topping",
-      "category": "calzones",
-      "name": "Additional Specialty Topping",
-      "description": "Add any specialty topping to your calzone.",
-      "price": "$1.50 each",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "calzone-extra-cheese",
-      "category": "calzones",
-      "name": "Extra Cheese",
-      "description": "Additional mozzarella cheese inside your calzone.",
-      "price": "$2.00",
       "image": null,
       "active": true,
       "eightySix": {
@@ -1128,62 +1020,8 @@
       "id": "stromboli",
       "category": "stromboli",
       "name": "Stromboli",
-      "description": "A rolled and baked stromboli filled with pepperoni, Italian sausage, mushrooms, and melted cheese.",
+      "description": "A rolled and baked stromboli filled with pepperoni, Italian sausage, mushrooms, and melted cheese.\nAdditional Regular Topping $1.25 each\nAdditional Specialty Topping $1.50 each\nExtra Cheese $2.00",
       "price": "$14.95",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "stromboli-regular-topping",
-      "category": "stromboli",
-      "name": "Additional Regular Topping",
-      "description": "Add any regular topping to your stromboli.",
-      "price": "$1.25 each",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "stromboli-specialty-topping",
-      "category": "stromboli",
-      "name": "Additional Specialty Topping",
-      "description": "Add any specialty topping to your stromboli.",
-      "price": "$1.50 each",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "stromboli-extra-cheese",
-      "category": "stromboli",
-      "name": "Extra Cheese",
-      "description": "Additional cheese inside your stromboli.",
-      "price": "$2.00",
       "image": null,
       "active": true,
       "eightySix": {
