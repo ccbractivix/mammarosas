@@ -328,7 +328,7 @@
       "id": "caesar-salad",
       "category": "salads",
       "name": "Caesar Salad",
-      "description": "Crisp romaine lettuce tossed in Caesar dressing, topped with croutons and Parmesan.\nAdd grilled chicken to your Caesar salad $6.50",
+      "description": "Crisp romaine lettuce tossed in Caesar dressing, topped with croutons and Parmesan.\nAdd grilled chicken to your Caesar salad $6.50\nExtra Dressing $1.25",
       "price": "$7.99",
       "image": null,
       "active": true,
@@ -346,7 +346,7 @@
       "id": "house-salad",
       "category": "salads",
       "name": "House Salad",
-      "description": "Fresh mixed greens with tomato, cucumber, and your choice of dressing.\nAdd grilled chicken to your House salad $6.50",
+      "description": "Fresh mixed greens with tomato, cucumber, and your choice of dressing.\nAdd grilled chicken to your House salad $6.50\nExtra Dressing $1.25",
       "price": "$6.99",
       "image": null,
       "active": true,
@@ -364,7 +364,7 @@
       "id": "greek-salad",
       "category": "salads",
       "name": "Greek Salad",
-      "description": "Fresh lettuce, tomato, red onion, pepperoncini, kalamata olives, ham, salami, and feta cheese.",
+      "description": "Fresh lettuce, tomato, red onion, pepperoncini, kalamata olives, ham, salami, and feta cheese.\nExtra Dressing $1.25",
       "price": "$15.25",
       "image": null,
       "active": true,
@@ -382,26 +382,8 @@
       "id": "antipasto-salad",
       "category": "salads",
       "name": "Antipasto Salad",
-      "description": "Fresh lettuce, tomato, ham, salami, black olives, pepperoncini, and fresh mozzarella.",
+      "description": "Fresh lettuce, tomato, ham, salami, black olives, pepperoncini, and fresh mozzarella.\nExtra Dressing $1.25",
       "price": "$15.25",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "extra-dressing",
-      "category": "salads",
-      "name": "Extra Dressing",
-      "description": "Additional dressing on the side — your choice.",
-      "price": "$1.25",
       "image": null,
       "active": true,
       "eightySix": {
