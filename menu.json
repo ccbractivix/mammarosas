@@ -632,26 +632,8 @@
       "id": "sub-eggplant-parm",
       "category": "subs",
       "name": "Eggplant Parmigiana",
-      "description": "Breaded eggplant with marinara and melted mozzarella on a toasted 10\" roll.",
+      "description": "Breaded eggplant with marinara and melted mozzarella on a toasted 10\" roll.\nExtra eggplant $6.50",
       "price": "$13.75",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "sub-extra-eggplant",
-      "category": "subs",
-      "name": "Extra Eggplant",
-      "description": "Additional eggplant portion added to your sub.",
-      "price": "$6.50",
       "image": null,
       "active": true,
       "eightySix": {
