@@ -258,7 +258,7 @@
       "name": "Chicken Fingers",
       "description": "Tender breaded chicken strips served with your choice of dipping sauce.",
       "price": "$10.95",
-      "image": null,
+      "image": "images/chicken-fingers.jpg",
       "active": true,
       "eightySix": {
         "active": false,
