@@ -490,7 +490,7 @@
       "name": "Fettuccine Alfredo",
       "description": "Fettuccine pasta tossed in our house-made creamy Alfredo sauce.",
       "price": "$17.95",
-      "image": null,
+      "image": "images/fettuccine-alfredo.jpg",
       "active": true,
       "eightySix": {
         "active": false,
