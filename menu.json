@@ -222,7 +222,7 @@
       "name": "Garlic Knots",
       "description": "Fresh-baked dough knots brushed with garlic butter. A Mamma Rosa classic.",
       "price": "$6.00",
-      "image": null,
+      "image": "images/garlic-knots.jpg",
       "active": true,
       "eightySix": {
         "active": false,
