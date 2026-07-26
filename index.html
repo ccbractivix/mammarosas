@@ -305,12 +305,14 @@
       panel.className = 'topping-info-panel';
       panel.id = 'topping-panel';
 
-      const addBlock = (label, prices, halfPrices, items, premPrice) => {
+      const addBlock = (label, prices, halfPrices, items, premPrice, priceLabel) => {
         const div = document.createElement('div');
         div.className = 'topping-block';
         let html = `<h4>${label}</h4>`;
+        if (items) html += `<div class="topping-list">${items.join(', ')}</div>`;
         if (prices) {
           html += `<div class="topping-price-row">`;
+          if (priceLabel) html += `<span>${priceLabel}:</span>`;
           for (const [size, p] of Object.entries(prices))
             html += `<span><strong>${size}"</strong> ${p}</span>`;
           html += `</div>`;
@@ -324,7 +326,6 @@
         if (premPrice) {
           html += `<div class="topping-price-row"><span><strong>Each</strong> ${premPrice}</span></div>`;
         }
-        if (items) html += `<div class="topping-list">${items.join(', ')}</div>`;
         div.innerHTML = html;
         return div;
       };
@@ -333,7 +334,9 @@
         info.regular.label,
         info.regular.prices,
         info.regular.halfPrices,
-        info.regular.items
+        info.regular.items,
+        undefined,
+        'Whole'
       ));
       panel.appendChild(addBlock(
         info.specialty.label,
