@@ -436,27 +436,9 @@
       "id": "fettuccine-alfredo",
       "category": "entrees",
       "name": "Fettuccine Alfredo",
-      "description": "Fettuccine pasta tossed in our house-made creamy Alfredo sauce.",
+      "description": "Fettuccine pasta tossed in our house-made creamy Alfredo sauce.\nAdd tender grilled chicken $3.00",
       "price": "$17.95",
       "image": "images/fettuccine-alfredo.jpg",
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "fettuccine-alfredo-chicken",
-      "category": "entrees",
-      "name": "Fettuccine Alfredo with Chicken",
-      "description": "Creamy fettuccine Alfredo topped with tender grilled chicken breast.",
-      "price": "$20.95",
-      "image": null,
       "active": true,
       "eightySix": {
         "active": false,
