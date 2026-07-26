@@ -516,9 +516,12 @@
 
         // Footer
         const footer = document.getElementById('footer');
+        const r = data.restaurant || {};
+        const footerCopyright = r.footerCopyright || "© 2026 Mamma Rosa's Pizzeria Restaurant";
+        const facebookUrl = r.facebookUrl || 'https://www.facebook.com/mammarosas';
         footer.innerHTML = `
-          <div>© 2026 Mamma Rosa's Pizzeria Restaurant</div>
-          <a class="footer-facebook-link" href="https://www.facebook.com/mammarosas" target="_blank" rel="noopener noreferrer" aria-label="Visit Mamma Rosa's on Facebook">
+          <div>${footerCopyright}</div>
+          <a class="footer-facebook-link" href="${facebookUrl}" target="_blank" rel="noopener noreferrer" aria-label="Visit Mamma Rosa's on Facebook">
             <img class="footer-facebook-logo" src="images/Facebook_Logo_Primary.png" alt="Facebook">
           </a>`;
         footer.style.display = 'block';
