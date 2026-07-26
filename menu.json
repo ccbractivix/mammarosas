@@ -326,26 +326,8 @@
       "id": "caesar-salad",
       "category": "salads",
       "name": "Caesar Salad",
-      "description": "Crisp romaine lettuce tossed in Caesar dressing, topped with croutons and Parmesan.",
+      "description": "Crisp romaine lettuce tossed in Caesar dressing, topped with croutons and Parmesan.\nAdd grilled chicken to your Caesar salad $6.50",
       "price": "$7.99",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "caesar-add-chicken",
-      "category": "salads",
-      "name": "Add Chicken to Caesar",
-      "description": "Add grilled chicken to your Caesar salad.",
-      "price": "$6.50",
       "image": null,
       "active": true,
       "eightySix": {
@@ -362,26 +344,8 @@
       "id": "house-salad",
       "category": "salads",
       "name": "House Salad",
-      "description": "Fresh mixed greens with tomato, cucumber, and your choice of dressing.",
+      "description": "Fresh mixed greens with tomato, cucumber, and your choice of dressing.\nAdd grilled chicken to your House salad $6.50",
       "price": "$6.99",
-      "image": null,
-      "active": true,
-      "eightySix": {
-        "active": false,
-        "returnDate": null
-      },
-      "isSpecial": false,
-      "specialDates": {
-        "start": null,
-        "end": null
-      }
-    },
-    {
-      "id": "house-add-chicken",
-      "category": "salads",
-      "name": "Add Chicken to House Salad",
-      "description": "Add grilled chicken to your house salad.",
-      "price": "$6.50",
       "image": null,
       "active": true,
       "eightySix": {
