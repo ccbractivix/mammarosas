@@ -17,41 +17,165 @@
   "pizzaToppingInfo": {
     "regular": {
       "label": "Regular Toppings",
-      "prices": { "12": "$2.00", "18": "$2.75", "20": "$3.00" },
-      "halfPrices": { "12": "$2.00", "18": "$2.25", "20": "$2.50" },
-      "items": ["Pepperoni", "Sausage", "Ham", "Bacon", "Mushrooms", "Onions", "Green Peppers", "Black Olives"]
+      "prices": {
+        "12": "$2.00",
+        "18": "$2.75",
+        "20": "$3.00"
+      },
+      "halfPrices": {
+        "12": "$2.00",
+        "18": "$2.25",
+        "20": "$2.50"
+      },
+      "items": [
+        "Pepperoni",
+        "Sausage",
+        "Ham",
+        "Bacon",
+        "Mushrooms",
+        "Onions",
+        "Green Peppers",
+        "Black Olives"
+      ]
     },
     "specialty": {
       "label": "Specialty Toppings",
-      "prices": { "12": "$2.50", "18": "$3.25", "20": "$3.50" },
-      "items": ["Pineapple", "Spinach", "Pepperoncini", "Banana Peppers", "Anchovies"]
+      "prices": {
+        "12": "$2.50",
+        "18": "$3.25",
+        "20": "$3.50"
+      },
+      "items": [
+        "Pineapple",
+        "Spinach",
+        "Pepperoncini",
+        "Banana Peppers",
+        "Anchovies"
+      ]
     },
     "premium": {
       "label": "Premium Toppings (subject to change)",
       "price": "$4.00",
-      "items": ["Extra Ricotta Cheese", "Mozzarella Cheese", "Meatball", "Tomato"]
+      "items": [
+        "Extra Ricotta Cheese",
+        "Mozzarella Cheese",
+        "Meatball",
+        "Tomato"
+      ]
     },
     "note": "No substitutions on Specialty Pizzas, please"
   },
   "categories": [
-    { "id": "appetizers",  "name": "Appetizers",             "note": null,                                                                               "infoOnly": false },
-    { "id": "sides",       "name": "Sides",                  "note": null,                                                                               "infoOnly": false },
-    { "id": "salads",      "name": "Salads",                 "note": null,                                                                               "infoOnly": false },
-    { "id": "entrees",     "name": "Entrees",                "note": null,                                                                               "infoOnly": false },
-    { "id": "pasta",       "name": "Pasta",                  "note": "Any pasta with any sauce — add meatball $3.00 or sausage $4.00",                   "infoOnly": false },
-    { "id": "baked-pasta", "name": "Baked Pasta",            "note": "Served with tomato sauce and garlic bread",                                        "infoOnly": false },
-    { "id": "subs",        "name": "10\" Subs",              "note": null,                                                                               "infoOnly": false },
-    { "id": "pizza",       "name": "Pizza",                  "note": null,                                                                               "infoOnly": false },
-    { "id": "grandmas-pie","name": "Grandma's Pie",          "subtitle": "16\" Square Pan", "note": null,                                                "infoOnly": false },
-    { "id": "sicilian-pie","name": "Sicilian Pie",           "subtitle": "16\" Square Pan", "note": null,                                                "infoOnly": false },
-    { "id": "slices",      "name": "Pizza By The Slice",     "note": "Available Daily 11 am – 2 pm",                                                    "infoOnly": false },
-    { "id": "calzones",    "name": "Calzones",               "note": "Served with a side of marinara",                                                  "infoOnly": false },
-    { "id": "stromboli",   "name": "Stromboli",              "note": null,                                                                               "infoOnly": false },
-    { "id": "kids",        "name": "Kids' Menu",             "note": "12 years old and under",                                                          "infoOnly": false },
-    { "id": "desserts",    "name": "Desserts",               "note": null,                                                                               "infoOnly": false },
-    { "id": "beverages",   "name": "Beverages",              "note": "Complimentary refills in the dining room",                                         "infoOnly": false },
-    { "id": "beer-wine",   "name": "Beer & Wine",            "note": "Now serving beer and wine. Dine-in only. We reserve the right to refuse service.", "infoOnly": true  },
-    { "id": "party-trays", "name": "Party Trays",            "note": "Party trays available with 24 hours notice. Call us to place your order.",         "infoOnly": true  }
+    {
+      "id": "appetizers",
+      "name": "Appetizers",
+      "note": null,
+      "infoOnly": false
+    },
+    {
+      "id": "sides",
+      "name": "Sides",
+      "note": null,
+      "infoOnly": false
+    },
+    {
+      "id": "salads",
+      "name": "Salads",
+      "note": null,
+      "infoOnly": false
+    },
+    {
+      "id": "entrees",
+      "name": "Entrees",
+      "note": null,
+      "infoOnly": false
+    },
+    {
+      "id": "pasta",
+      "name": "Pasta",
+      "note": "Any pasta with any sauce — add meatball $3.00 or sausage $4.00",
+      "infoOnly": false
+    },
+    {
+      "id": "baked-pasta",
+      "name": "Baked Pasta",
+      "note": "Served with tomato sauce and garlic bread",
+      "infoOnly": false
+    },
+    {
+      "id": "subs",
+      "name": "10\" Subs",
+      "note": null,
+      "infoOnly": false
+    },
+    {
+      "id": "pizza",
+      "name": "Pizza",
+      "note": null,
+      "infoOnly": false
+    },
+    {
+      "id": "grandmas-pie",
+      "name": "Grandma's Pie",
+      "subtitle": "16\" Square Pan",
+      "note": null,
+      "infoOnly": false
+    },
+    {
+      "id": "sicilian-pie",
+      "name": "Sicilian Pie",
+      "subtitle": "16\" Square Pan",
+      "note": null,
+      "infoOnly": false
+    },
+    {
+      "id": "slices",
+      "name": "Pizza By The Slice",
+      "note": "Available Daily 11 am – 2 pm",
+      "infoOnly": false
+    },
+    {
+      "id": "calzones",
+      "name": "Calzones",
+      "note": "Served with a side of marinara",
+      "infoOnly": false
+    },
+    {
+      "id": "stromboli",
+      "name": "Stromboli",
+      "note": null,
+      "infoOnly": false
+    },
+    {
+      "id": "kids",
+      "name": "Kids' Menu",
+      "note": "12 years old and under",
+      "infoOnly": false
+    },
+    {
+      "id": "desserts",
+      "name": "Desserts",
+      "note": null,
+      "infoOnly": false
+    },
+    {
+      "id": "beverages",
+      "name": "Beverages",
+      "note": "Complimentary refills in the dining room",
+      "infoOnly": false
+    },
+    {
+      "id": "beer-wine",
+      "name": "Beer & Wine",
+      "note": "Now serving beer and wine. Dine-in only. We reserve the right to refuse service.",
+      "infoOnly": true
+    },
+    {
+      "id": "party-trays",
+      "name": "Party Trays",
+      "note": "Party trays available with 24 hours notice. Call us to place your order.",
+      "infoOnly": true
+    }
   ],
   "items": [
     {
@@ -62,9 +186,15 @@
       "price": "$8.25",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "fried-calamari",
@@ -74,9 +204,15 @@
       "price": "$13.95",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "garlic-knots",
@@ -86,9 +222,15 @@
       "price": "$6.00",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "meatball-sausage-marinara",
@@ -98,9 +240,15 @@
       "price": "$10.00",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "chicken-fingers",
@@ -110,9 +258,15 @@
       "price": "$10.95",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "french-fries",
@@ -122,9 +276,15 @@
       "price": "$5.75",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "alfredo-sauce-side",
@@ -134,9 +294,15 @@
       "price": "$6.75",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "marinara-sauce-side",
@@ -146,9 +312,15 @@
       "price": "$1.25",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "caesar-salad",
@@ -158,9 +330,15 @@
       "price": "$7.99",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "caesar-add-chicken",
@@ -170,9 +348,15 @@
       "price": "$6.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "house-salad",
@@ -182,9 +366,15 @@
       "price": "$6.99",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "house-add-chicken",
@@ -194,9 +384,15 @@
       "price": "$6.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "greek-salad",
@@ -206,9 +402,15 @@
       "price": "$15.25",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "antipasto-salad",
@@ -218,9 +420,15 @@
       "price": "$15.25",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "extra-dressing",
@@ -230,9 +438,15 @@
       "price": "$1.25",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "chicken-parm-spaghetti",
@@ -242,9 +456,15 @@
       "price": "$19.95",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "eggplant-parm-spaghetti",
@@ -254,9 +474,15 @@
       "price": "$19.95",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "fettuccine-alfredo",
@@ -266,9 +492,15 @@
       "price": "$17.95",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "fettuccine-alfredo-chicken",
@@ -278,9 +510,15 @@
       "price": "$20.95",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "spaghetti",
@@ -290,9 +528,15 @@
       "price": "$12.00",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "ziti",
@@ -302,9 +546,15 @@
       "price": "$12.00",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "fettuccine",
@@ -314,9 +564,15 @@
       "price": "$12.00",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "lasagna",
@@ -326,9 +582,15 @@
       "price": "$16.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "baked-ziti",
@@ -338,9 +600,15 @@
       "price": "$16.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "sub-meatball-parm",
@@ -350,9 +618,15 @@
       "price": "$13.75",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "sub-chicken-parm",
@@ -362,9 +636,15 @@
       "price": "$13.75",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "sub-sausage-parm",
@@ -374,9 +654,15 @@
       "price": "$13.75",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "sub-eggplant-parm",
@@ -386,9 +672,15 @@
       "price": "$13.75",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "sub-extra-eggplant",
@@ -398,9 +690,15 @@
       "price": "$6.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "sub-sausage-peppers",
@@ -410,9 +708,15 @@
       "price": "$13.75",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "sub-philly-cheesesteak",
@@ -422,9 +726,15 @@
       "price": "$13.75",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "sub-extra-steak",
@@ -434,9 +744,15 @@
       "price": "$6.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "sub-italian",
@@ -446,93 +762,169 @@
       "price": "$13.75",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "cheese-pizza",
       "category": "pizza",
       "name": "Cheese Pizza",
       "description": "Our classic pizza with house tomato sauce and a generous blanket of melted mozzarella cheese.",
-      "sizes": { "12": "$12.00", "18": "$18.00", "20": "$20.00" },
+      "sizes": {
+        "12": "$12.00",
+        "18": "$18.00",
+        "20": "$20.00"
+      },
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "white-pizza",
       "category": "pizza",
       "name": "White Pizza",
       "description": "Garlic butter base topped with creamy ricotta and melted mozzarella — no red sauce.",
-      "sizes": { "12": "$14.00", "18": "$19.95", "20": "$22.25" },
+      "sizes": {
+        "12": "$14.00",
+        "18": "$19.95",
+        "20": "$22.25"
+      },
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "tomato-basil-pizza",
       "category": "pizza",
       "name": "Tomato & Basil Pizza",
       "description": "Garlic butter base topped with sliced fresh tomatoes and aromatic basil.",
-      "sizes": { "12": "$14.00", "18": "$20.95", "20": "$23.25" },
+      "sizes": {
+        "12": "$14.00",
+        "18": "$20.95",
+        "20": "$23.25"
+      },
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "meat-lovers-pizza",
       "category": "pizza",
       "name": "Meat Lovers Pizza",
       "description": "Loaded with pepperoni, Italian sausage, ham, and bacon for the ultimate meat lover.",
-      "sizes": { "12": "$17.00", "18": "$23.95", "20": "$25.25" },
+      "sizes": {
+        "12": "$17.00",
+        "18": "$23.95",
+        "20": "$25.25"
+      },
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "hawaiian-pizza",
       "category": "pizza",
       "name": "Hawaiian",
       "description": "A sweet and savory combination of ham and pineapple on our classic pizza base.",
-      "sizes": { "12": "$14.00", "18": "$19.95", "20": "$22.25" },
+      "sizes": {
+        "12": "$14.00",
+        "18": "$19.95",
+        "20": "$22.25"
+      },
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "mamma-rosas-special",
       "category": "pizza",
       "name": "Mamma Rosa's Special",
       "description": "The works! Pepperoni, sausage, ham, bacon, mushrooms, onions, green peppers, and black olives.",
-      "sizes": { "12": "$19.00", "18": "$26.25", "20": "$28.25" },
+      "sizes": {
+        "12": "$19.00",
+        "18": "$26.25",
+        "20": "$28.25"
+      },
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "veggie-pizza",
       "category": "pizza",
       "name": "Veggie",
       "description": "A garden-fresh combination of onions, green peppers, and black olives on our house sauce and mozzarella.",
-      "sizes": { "12": "$14.00", "18": "$19.95", "20": "$22.25" },
+      "sizes": {
+        "12": "$14.00",
+        "18": "$19.95",
+        "20": "$22.25"
+      },
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "grandmas-pie-cheese",
@@ -542,9 +934,15 @@
       "price": "$21.95",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "grandmas-pie-special",
@@ -554,9 +952,15 @@
       "price": "$32.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "grandmas-pie-meat-lovers",
@@ -566,9 +970,15 @@
       "price": "$30.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "sicilian-pie-cheese",
@@ -578,9 +988,15 @@
       "price": "$23.95",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "sicilian-pie-special",
@@ -590,9 +1006,15 @@
       "price": "$34.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "sicilian-pie-meat-lovers",
@@ -602,9 +1024,15 @@
       "price": "$32.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "cheese-slice",
@@ -614,9 +1042,15 @@
       "price": "$3.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "slice-regular-topping",
@@ -626,9 +1060,15 @@
       "price": "50¢ each",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "slice-specialty-topping",
@@ -638,9 +1078,15 @@
       "price": "75¢ each",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "slice-extra-cheese",
@@ -650,9 +1096,15 @@
       "price": "$1.00",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "calzone-ricotta-mozzarella",
@@ -662,9 +1114,15 @@
       "price": "$13.75",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "calzone-regular-topping",
@@ -674,9 +1132,15 @@
       "price": "$1.25 each",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "calzone-specialty-topping",
@@ -686,9 +1150,15 @@
       "price": "$1.50 each",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "calzone-extra-cheese",
@@ -698,9 +1168,15 @@
       "price": "$2.00",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "stromboli",
@@ -710,9 +1186,15 @@
       "price": "$14.95",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "stromboli-regular-topping",
@@ -722,9 +1204,15 @@
       "price": "$1.25 each",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "stromboli-specialty-topping",
@@ -734,9 +1222,15 @@
       "price": "$1.50 each",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "stromboli-extra-cheese",
@@ -746,9 +1240,15 @@
       "price": "$2.00",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "kids-spaghetti",
@@ -758,9 +1258,15 @@
       "price": "$8.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "kids-chicken-basket",
@@ -770,9 +1276,15 @@
       "price": "$8.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "cheesecake",
@@ -782,9 +1294,15 @@
       "price": "$6.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "tiramisu",
@@ -794,9 +1312,15 @@
       "price": "$6.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "cannoli",
@@ -806,9 +1330,15 @@
       "price": "$6.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "zeppolis",
@@ -818,9 +1348,15 @@
       "price": "$5.50",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "soft-drinks",
@@ -830,9 +1366,15 @@
       "price": "$3.00",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     },
     {
       "id": "iced-tea",
@@ -842,9 +1384,15 @@
       "price": "$3.00",
       "image": null,
       "active": true,
-      "eightySix": { "active": false, "returnDate": null },
+      "eightySix": {
+        "active": false,
+        "returnDate": null
+      },
       "isSpecial": false,
-      "specialDates": { "start": null, "end": null }
+      "specialDates": {
+        "start": null,
+        "end": null
+      }
     }
   ]
 }
