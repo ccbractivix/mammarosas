@@ -366,7 +366,7 @@
       "name": "Greek Salad",
       "description": "Fresh lettuce, tomato, red onion, pepperoncini, kalamata olives, ham, salami, and feta cheese.\nExtra Dressing $1.25",
       "price": "$15.25",
-      "image": null,
+      "image": "images/greek-salad.jpg",
       "active": true,
       "eightySix": {
         "active": false,
