@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mamma Rosa's Pizzeria — Titusville, FL</title>
   <meta name="description" content="Mamma Rosa's Pizzeria in Titusville, FL. Fresh Italian food, pizza, pasta, subs and more. Dine-in and pick-up.">
+  <link rel="icon" type="image/png" sizes="192x192" href="images/icon-192.png">
+  <link rel="apple-touch-icon" href="images/icon-192.png">
   <style>
     :root {
       --bg: #0f0f12; --card: #181a21; --text: #e9e9e9; --muted: #b5b5b5;
@@ -30,7 +32,7 @@
       padding: 8px 16px; position: sticky; top: 0; background: var(--bg);
       z-index: 50; border-bottom: 1px solid var(--border);
     }
-    .brand img { height: 44px; }
+    .brand img { height: 52px; width: auto; display: block; }
     .brand-text { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
     .theme-toggle {
       background: transparent; border: 0; color: var(--text);
@@ -39,6 +41,20 @@
     .theme-toggle:hover { background: var(--border); }
     /* ── Container ── */
     .container { max-width: 640px; margin: 0 auto; padding: 0 14px 40px; }
+    .hero {
+      margin: 16px 0 10px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background: var(--card);
+    }
+    .hero img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
     /* ── Restaurant Info ── */
     .restaurant-info {
       text-align: center; padding: 18px 0 8px; border-bottom: 1px solid var(--border); margin-bottom: 4px;
@@ -174,6 +190,9 @@
   </header>
 
   <div class="container">
+    <section class="hero" aria-label="Mamma Rosa's featured image">
+      <img src="images/mammarosaheader.jpg" alt="Fresh food from Mamma Rosa's Pizzeria">
+    </section>
     <div id="restaurant-info" class="restaurant-info" style="display:none"></div>
     <div id="specials-banner"></div>
     <div id="loading">Loading menu…</div>
