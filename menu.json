@@ -204,7 +204,7 @@
       "name": "Fried Calamari",
       "description": "Lightly battered and fried calamari rings served with marinara or fresh lemon.",
       "price": "$13.95",
-      "image": null,
+      "image": "images/fried-calamari.jpg",
       "active": true,
       "eightySix": {
         "active": false,
