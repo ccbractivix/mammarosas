@@ -528,7 +528,7 @@
       "name": "Baked Ziti",
       "description": "Ziti pasta baked with tomato sauce, ricotta, and melted mozzarella. Served with garlic bread.",
       "price": "$16.50",
-      "image": null,
+      "image": "images/baked-ziti.jpg",
       "active": true,
       "eightySix": {
         "active": false,
@@ -698,7 +698,7 @@
         "18": "$19.95",
         "20": "$22.25"
       },
-      "image": null,
+      "image": "images/white-pizza.jpg",
       "active": true,
       "eightySix": {
         "active": false,
