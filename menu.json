@@ -348,7 +348,7 @@
       "name": "House Salad",
       "description": "Fresh mixed greens with tomato, cucumber, and your choice of dressing.\nAdd grilled chicken to your House salad $6.50\nExtra Dressing $1.25",
       "price": "$6.99",
-      "image": null,
+      "image": "images/house-salad.jpg",
       "active": true,
       "eightySix": {
         "active": false,
