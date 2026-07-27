@@ -328,9 +328,9 @@
       "id": "caesar-salad",
       "category": "salads",
       "name": "Caesar Salad",
-      "description": "Crisp romaine lettuce tossed in Caesar dressing, topped with croutons and Parmesan.\nAdd grilled chicken to your Caesar salad $6.50\nExtra Dressing $1.25",
+      "description": "Crisp romaine lettuce tossed in Caesar dressing, topped with croutons and Parmesan.\nAdd grilled chicken to your Caesar salad $6.50 (pictured here with chicken)\nExtra Dressing $1.25",
       "price": "$7.99",
-      "image": null,
+      "image": "images/caesar-salad.jpg",
       "active": true,
       "eightySix": {
         "active": false,
